@@ -110,8 +110,20 @@ namespace MusicPlayer
             }
             else
             {
-                    MyPlayer.controls.play();
+                MyPlayer.controls.play();
                 //play
+            }
+        }
+        public void ToggleMute()
+        {
+            if (MyPlayer.settings.mute){
+                
+                MyPlayer.settings.mute = false;
+                // unMute
+                }  else 
+                {
+                MyPlayer.settings.mute = true;
+                //Mute
             }
         }
         public void Stop()
@@ -121,8 +133,11 @@ namespace MusicPlayer
         public void Load()
         {
             Console.WriteLine("Type full path to file, or drag and drop an mp3 on this console");
-            string filename = Console.ReadLine();
-            filename = filename.Replace("\"", "");
+            
+            GetSongs getSong = new GetSongs();
+            string filename = getSong.ViewSongs(getSong.DirPath);
+
+            //filename = filename.Replace("\"", "");
             //filename = filename.Replace("\\", "\\\\");
             Console.WriteLine(filename);
 
@@ -156,7 +171,9 @@ namespace MusicPlayer
                 case "-":
                     volume--;
                     break;
-
+                case "m":
+                    this.ToggleMute();
+                    break;
                 default:
                     break;
             }
