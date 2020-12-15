@@ -10,14 +10,15 @@ namespace MusicPlayer
         {
         static void Main(string[] args)
         {
-            string path = "p:\\Music\\002. Queen - Under Pressure (Remastered).mp3";
+            GetSongs getSong = new GetSongs();
+            string path = getSong.ViewSongs();
 
             Player myplayer = new Player(path);
             myplayer.PlaySong();
             string keyPress;
- 
+
             do
-            {                
+            {
                 myplayer.ShowMenu();
                 Console.WriteLine();
                 Console.WriteLine(myplayer.SongArtist);
@@ -28,6 +29,6 @@ namespace MusicPlayer
                 myplayer.Action(keyPress);
 
             } while (keyPress != "x");
-            }
+        }
         }
     }

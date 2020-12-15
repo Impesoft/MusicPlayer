@@ -121,8 +121,11 @@ namespace MusicPlayer
         public void Load()
         {
             Console.WriteLine("Type full path to file, or drag and drop an mp3 on this console");
-            string filename = Console.ReadLine();
-            filename = filename.Replace("\"", "");
+            
+            GetSongs getSong = new GetSongs();
+            string filename = getSong.ViewSongs();
+
+            //filename = filename.Replace("\"", "");
             //filename = filename.Replace("\\", "\\\\");
             Console.WriteLine(filename);
 
