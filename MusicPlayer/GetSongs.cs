@@ -48,26 +48,30 @@ namespace MusicPlayer
             DirPath = dirPath;
             string[] songlist = FindMp3(dirPath);
             int selectIndex;
+            Console.WriteLine();
             for (int i = 0; i < songlist.Length; i++)
             {
                 if (i < 10)
                 {
                     Console.Write("0");
                 }
-                Console.Write($"{i}  ");
-                GetMetaData(songlist[i]);
                 selectIndex = i + 1;
+                Console.Write($"{selectIndex}  ");
+                GetMetaData(songlist[i]);
             }
-            string invoer = Console.ReadLine();
-            bool success = Int32.TryParse(invoer, out int selection);
+            Console.Write("\nSelect number, type full path to file\nor drag and drop an mp3 on this console:");
+            string invoer;
+            do { invoer = Console.ReadLine(); } while (invoer == "");
+
+            bool success = Int32.TryParse(invoer, out int selection); //check of invoer een integer is 
             string path;
-            if (success)
+            if (success) //integer -> song selectie uit lijst
             {
-                path = songlist[selection];
+                path = songlist[selection-1]; // -1 want 0 based 
             }
             else
             {
-                invoer = invoer.Replace("\"", "");
+                invoer = invoer.Replace("\"", ""); // verwijder de mogelijke extra " " van drag n drop uit de string
                 path = invoer;
             }
             return path;
