@@ -40,6 +40,7 @@ namespace MusicPlayer
         public WindowsMediaPlayer MyPlayer { get; set; }
 
         public string SongPath { get; set; }
+        public string PublicPath { get; set; }
         public string SongTitle { get; set; }
         public string SongAlbum { get; set; }
         public string SongArtist { get; set; }
@@ -50,6 +51,7 @@ namespace MusicPlayer
             MyPlayer = myPlayer;
             SongPath = songPath;
             Volume = myPlayer.settings.volume;
+            PublicPath = "";
         }
 
         public void PlaySong()
