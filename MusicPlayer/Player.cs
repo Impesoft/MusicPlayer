@@ -1,11 +1,12 @@
 ﻿using System;
 using WMPLib;
-using TagLib;
+
 namespace MusicPlayer
 {
     internal class Player
     {
-           private int volume {
+        private int volume
+        {
             get
             {
                 return Volume;
@@ -14,7 +15,7 @@ namespace MusicPlayer
             {
                 if (value > 100)
                 {
-                                        MyPlayer.settings.volume = 100;
+                    MyPlayer.settings.volume = 100;
                     Volume = 100;
                 }
                 else
@@ -32,9 +33,10 @@ namespace MusicPlayer
                 }
             }
         }
+
         public int Volume
-        {  get; set;
-    
+        {
+            get; set;
         }
 
         public WindowsMediaPlayer MyPlayer { get; set; }
@@ -49,29 +51,16 @@ namespace MusicPlayer
         {
             WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
             MyPlayer = myPlayer;
-            //SongPath = songPath;
             Volume = 100;
             PublicPath = "c:\\";
         }
 
         public void PlaySong()
         {
-            
             MyPlayer.URL = SongPath;
             SongTitle = MyPlayer.currentMedia.name;
             Volume = 100;
-
-            try
-            {
-                TagLib.File id3 = TagLib.File.Create(SongPath);
-                SongAlbum = id3.Tag.Album;
-                SongArtist = id3.Tag.Performers[0];
-            }
-            catch { 
-                Console.WriteLine(  "oops, something went wrong");
-                
-            }
-                    }
+        }
 
         public void ShowMenu()
         {
@@ -86,11 +75,11 @@ namespace MusicPlayer
             Console.ResetColor();
             Console.WriteLine(" Volume wijzigen");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("[m/M]");//Volume dempen/dempen opheffen
+            Console.Write("[m/M]");//   Mute/unMute
             Console.ResetColor();
             Console.WriteLine(" Mute/unMute Volume");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("[l/L]");//Liedje afspelen (om een ander liedje af te spelen dan het huidige liedje)
+            Console.Write("[l/L]");//   Load track (om een ander liedje af te spelen dan het huidige liedje)
             Console.ResetColor();
             Console.WriteLine(" Laad (ander) Liedje");
             Console.ForegroundColor = ConsoleColor.Red;
@@ -102,6 +91,9 @@ namespace MusicPlayer
             Console.Write("[x/X]");
             Console.ResetColor();
             Console.WriteLine(" eXit (Afsluiten; sluit de volledige applicatie af)");
+            Console.WriteLine();
+            Console.WriteLine($"now playing: {SongArtist} - { SongTitle}.");
+            Console.WriteLine($"Current Volume {Volume}%");
         }
 
         public void TogglePauze()
@@ -117,41 +109,38 @@ namespace MusicPlayer
                 //play
             }
         }
+
         public void ToggleMute()
         {
-            if (MyPlayer.settings.mute){
-                
+            if (MyPlayer.settings.mute)
+            {
                 MyPlayer.settings.mute = false;
                 // unMute
-                }  else 
-                {
+            }
+            else
+            {
                 MyPlayer.settings.mute = true;
                 //Mute
             }
         }
+
         public void Stop()
         {
             MyPlayer.controls.stop();
         }
+
         public void Load(string path)
         {
-
-
             PublicPath = path;
             GetSongs getSong = new GetSongs();
             path = getSong.ViewSongs(PublicPath);
             string filename = path;
-            Console.Write("\nSelect number, type full path to file\nor drag and drop an mp3 on this console:");
-
-            //filename = filename.Replace("\"", "");
-            //filename = filename.Replace("\\", "\\\\");
             Console.WriteLine(filename);
-
-            this.SongPath =filename;
+            this.SongPath = filename;
             this.PlaySong();
             string title = this.SongTitle;
-
         }
+
         public void Action(string action)
         {
             switch (action)
@@ -159,12 +148,15 @@ namespace MusicPlayer
                 case "p":
                     this.TogglePauze();
                     break;
+
                 case "l":
-                    this.Load(PublicPath);                 
+                    this.Load(PublicPath);
                     break;
-                case "s": 
+
+                case "s":
                     this.Stop();
                     break;
+
                 case "+":
                     volume++;
                     break;
@@ -172,27 +164,29 @@ namespace MusicPlayer
                 case "-":
                     volume--;
                     break;
+
                 case "m":
                     this.ToggleMute();
                     break;
+
                 default:
                     break;
             }
         }
-        static void ShowTitle()
+
+        private static void ShowTitle()
         {
-            string title = @"   *                           (    (                            
- (  `          (               )\ ) )\ )                         
- )\))(     (   )\ )  (      ) (()/((()/(     )  (       (   (    
-((_)()\   ))\ (()/(  )\  ( /(  /(_))/(_)) ( /(  )\ )   ))\  )(   
-(_()((_) /((_) ((_))((_) )(_))(_)) (_))   )(_))(()/(  /((_)(()\  
-|  \/  |(_))   _| |  (_)((_)_ | _ \| |   ((_)_  )(_))(_))   ((_) 
-| |\/| |/ -_)/ _` |  | |/ _` ||  _/| |__ / _` || || |/ -_) | '_| 
-|_|  |_|\___|\__,_|  |_|\__,_||_|  |____|\__,_| \_, |\___| |_|   
+            string title = @"   *                           (    (
+ (  `          (               )\ ) )\ )
+ )\))(     (   )\ )  (      ) (()/((()/(     )  (       (   (
+((_)()\   ))\ (()/(  )\  ( /(  /(_))/(_)) ( /(  )\ )   ))\  )(
+(_()((_) /((_) ((_))((_) )(_))(_)) (_))   )(_))(()/(  /((_)(()\
+|  \/  |(_))   _| |  (_)((_)_ | _ \| |   ((_)_  )(_))(_))   ((_)
+| |\/| |/ -_)/ _` |  | |/ _` ||  _/| |__ / _` || || |/ -_) | '_|
+|_|  |_|\___|\__,_|  |_|\__,_||_|  |____|\__,_| \_, |\___| |_|
                                                 |__/             ";
             Console.WriteLine(title);
             Console.WriteLine();
         }
-
     }
 }
