@@ -59,10 +59,16 @@ namespace MusicPlayer
             SongTitle = MyPlayer.currentMedia.name;
             Volume = MyPlayer.settings.volume;
 
-            TagLib.File id3 = TagLib.File.Create(SongPath);
-            SongAlbum = id3.Tag.Album;
-            SongArtist = id3.Tag.Performers[0];
-
+            try
+            {
+                TagLib.File id3 = TagLib.File.Create(SongPath);
+                SongAlbum = id3.Tag.Album;
+                SongArtist = id3.Tag.Performers[0];
+            }
+            catch { 
+                Console.WriteLine(  "oops, something went wrong");
+                
+            }
                     }
 
         public void ShowMenu()
@@ -104,7 +110,6 @@ namespace MusicPlayer
             }
             else
             {
-                if (MyPlayer.playState == WMPLib.WMPPlayState.wmppsPlaying)
                     MyPlayer.controls.play();
                 //play
             }
