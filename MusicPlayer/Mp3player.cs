@@ -1,36 +1,32 @@
 ﻿using System;
-using WMPLib;
-using TagLib;
 
 namespace MusicPlayer
 {
-
-    
-        class Program
+    internal class Program
+    {
+        private static void Main(string[] args)
         {
-        static void Main(string[] args)
-        {
-            GetSongs getSong = new GetSongs();
             string dirPath = "P:\\Music";
+            //GetSongs getSong = new GetSongs();
 
-            string path = getSong.ViewSongs(dirPath);
+            //string path = getSong.ViewSongs(dirPath);
 
-            Player myplayer = new Player(path);
-            myplayer.PlaySong();
+            Player myPlayer = new Player();
+            myPlayer.Load(dirPath);
+            myPlayer.PlaySong();
+            myPlayer.PublicPath= dirPath;
             string keyPress;
-
             do
             {
-                myplayer.ShowMenu();
+                myPlayer.ShowMenu();
                 Console.WriteLine();
-                Console.WriteLine(myplayer.SongArtist);
-                Console.WriteLine(myplayer.SongTitle);
-                Console.WriteLine(myplayer.SongAlbum);
-                Console.WriteLine(myplayer.Volume);
+                Console.WriteLine($"now playing: {myPlayer.SongArtist} - { myPlayer.SongTitle}.");
+      //          Console.WriteLine(myPlayer.SongTitle);
+        //        Console.WriteLine(myPlayer.SongAlbum);
+                Console.WriteLine($"Current Volume {myPlayer.Volume}%");
                 keyPress = (Console.ReadKey().KeyChar).ToString().ToLower();
-                myplayer.Action(keyPress);
-
+                myPlayer.Action(keyPress);
             } while (keyPress != "x");
         }
-        }
     }
+}

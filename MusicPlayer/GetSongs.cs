@@ -54,16 +54,16 @@ namespace MusicPlayer
                 {
                     Console.Write("0");
                 }
-                Console.Write($"{i}  ");
-                GetMetaData(songlist[i]);
                 selectIndex = i + 1;
+                Console.Write($"{selectIndex}  ");
+                GetMetaData(songlist[i]);
             }
             string invoer = Console.ReadLine();
             bool success = Int32.TryParse(invoer, out int selection);
             string path;
             if (success)
             {
-                path = songlist[selection];
+                path = songlist[selection-1];
             }
             else
             {

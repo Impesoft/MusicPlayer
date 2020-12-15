@@ -45,13 +45,13 @@ namespace MusicPlayer
         public string SongAlbum { get; set; }
         public string SongArtist { get; set; }
 
-        public Player(string songPath)
+        public Player()
         {
             WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
             MyPlayer = myPlayer;
-            SongPath = songPath;
-            Volume = myPlayer.settings.volume;
-            PublicPath = "";
+            //SongPath = songPath;
+            Volume = 100;
+            PublicPath = "c:\\";
         }
 
         public void PlaySong()
@@ -59,7 +59,7 @@ namespace MusicPlayer
             
             MyPlayer.URL = SongPath;
             SongTitle = MyPlayer.currentMedia.name;
-            Volume = MyPlayer.settings.volume;
+            Volume = 100;
 
             try
             {
@@ -76,6 +76,7 @@ namespace MusicPlayer
         public void ShowMenu()
         {
             Console.Clear();
+            ShowTitle();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("[p/P]");
             Console.ResetColor();
@@ -132,12 +133,15 @@ namespace MusicPlayer
         {
             MyPlayer.controls.stop();
         }
-        public void Load()
+        public void Load(string path)
         {
-            Console.WriteLine("Type full path to file, or drag and drop an mp3 on this console");
-            
+
+
+            PublicPath = path;
             GetSongs getSong = new GetSongs();
-            string filename = getSong.ViewSongs(getSong.DirPath);
+            path = getSong.ViewSongs(PublicPath);
+            string filename = path;
+            Console.Write("\nSelect number, type full path to file\nor drag and drop an mp3 on this console:");
 
             //filename = filename.Replace("\"", "");
             //filename = filename.Replace("\\", "\\\\");
@@ -155,13 +159,8 @@ namespace MusicPlayer
                 case "p":
                     this.TogglePauze();
                     break;
-
                 case "l":
-                    this.Load();
-                    //this.SongPath = "p:\\Music\\Simple Minds - New Gold Dream -Maxi-  12-.mp3";
-                    //this.PlaySong();
-                    //string title = this.SongTitle;
-                    
+                    this.Load(PublicPath);                 
                     break;
                 case "s": 
                     this.Stop();
@@ -180,5 +179,20 @@ namespace MusicPlayer
                     break;
             }
         }
+        static void ShowTitle()
+        {
+            string title = @"   *                           (    (                            
+ (  `          (               )\ ) )\ )                         
+ )\))(     (   )\ )  (      ) (()/((()/(     )  (       (   (    
+((_)()\   ))\ (()/(  )\  ( /(  /(_))/(_)) ( /(  )\ )   ))\  )(   
+(_()((_) /((_) ((_))((_) )(_))(_)) (_))   )(_))(()/(  /((_)(()\  
+|  \/  |(_))   _| |  (_)((_)_ | _ \| |   ((_)_  )(_))(_))   ((_) 
+| |\/| |/ -_)/ _` |  | |/ _` ||  _/| |__ / _` || || |/ -_) | '_| 
+|_|  |_|\___|\__,_|  |_|\__,_||_|  |____|\__,_| \_, |\___| |_|   
+                                                |__/             ";
+            Console.WriteLine(title);
+            Console.WriteLine();
+        }
+
     }
 }
