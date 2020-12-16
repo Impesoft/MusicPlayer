@@ -4,9 +4,9 @@ namespace MusicPlayer
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
-            string dirPath = "C:\\dev\\mp3";
+            string dirPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
             Player myPlayer = new Player(dirPath);
             char keyPress;
             do

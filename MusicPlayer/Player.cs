@@ -21,7 +21,7 @@ namespace MusicPlayer
             PlaySong();
         }
 
-        private int volume { get; set; }
+        private int volume;
 
         public int Volume
         {
@@ -136,14 +136,13 @@ namespace MusicPlayer
 
         private void Load()
         {
-            string path = DirPath;
+            string path;
             GetSongs getSong = new GetSongs();
             path = getSong.ViewSongs(DirPath);
             string filename = path;
             Console.WriteLine(filename);
             this.SongPath = filename;
             this.PlaySong();
-            string title = this.SongTitle;
         }
 
         public void Load(string DirPath)
@@ -189,7 +188,7 @@ namespace MusicPlayer
                     this.ToggleMute();
                     logAction.Log(DirPath, this.SongTitle, "Muted/Unmuted");
                     break;
-
+                
                 default:
                     break;
             }
