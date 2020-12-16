@@ -6,7 +6,7 @@ namespace MusicPlayer
     {
         private static void Main(string[] args)
         {
-            string dirPath = "P:\\Music";
+            string dirPath = "C:\\dev\\mp3";
             Player myPlayer = new Player(dirPath);
             char keyPress;
             do
