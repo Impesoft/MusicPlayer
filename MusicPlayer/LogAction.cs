@@ -5,8 +5,6 @@ namespace MusicPlayer
 {
     internal class LogAction
     {
-        public string LogFile { get; set; }
-
         public void Log(string path, string songName, string action)
         {
             string logFile = path + "\\logFile.txt";
