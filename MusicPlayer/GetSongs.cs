@@ -7,7 +7,8 @@ namespace MusicPlayer
     internal class GetSongs
     {
         public string DirPath { get; set; }
-        public string[] FindMp3(string dir)   
+
+        public string[] FindMp3(string dir)
         {
             List<string> songList = new List<string>();
 
@@ -15,29 +16,25 @@ namespace MusicPlayer
             {
                 songList.Add(file);
             }
-            string[] songArray = new string[songList.Count];
-
-            for (int i = 0; i < songArray.Length; i++)
-            {
-                songArray[i] = songList[i];
-            }
+            string[] songArray = songList.ToArray();
             return songArray;
         }
 
         public void GetMetaData(string file)
         {
-            
             TagLib.File tagFile = TagLib.File.Create(file);
-            bool booltje = tagFile.Tag.IsEmpty;
-            if (!booltje) { 
-            string artist = tagFile.Tag.Performers[0];
-            string album = tagFile.Tag.Album;
-            string title = tagFile.Tag.Title;
-           
-            Console.Write($"{album}  |  ");
-            Console.Write($"{artist}  |  ");
-            Console.WriteLine(title);
-            } else
+            bool TagPresent = !(tagFile.Tag.IsEmpty);
+            if (TagPresent)
+            {
+                string artist = tagFile.Tag.Performers[0];
+                string album = tagFile.Tag.Album;
+                string title = tagFile.Tag.Title;
+
+                Console.Write($"{album}  |  ");
+                Console.Write($"{artist}  |  ");
+                Console.WriteLine(title);
+            }
+            else
             {
                 Console.WriteLine(file);
             }
@@ -63,11 +60,11 @@ namespace MusicPlayer
             string invoer;
             do { invoer = Console.ReadLine(); } while (invoer == "");
 
-            bool success = Int32.TryParse(invoer, out int selection); //check of invoer een integer is 
+            bool isInteger = Int32.TryParse(invoer, out int selection); //check of invoer een integer is
             string path;
-            if (success) //integer -> song selectie uit lijst
+            if (isInteger) //integer -> song selectie uit lijst
             {
-                path = songlist[selection-1]; // -1 want 0 based 
+                path = songlist[selection - 1]; // -1 want 0 based
             }
             else
             {
