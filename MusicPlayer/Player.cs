@@ -182,9 +182,7 @@ namespace MusicPlayer
                 case 'm':
                     this.ToggleMute();
                     break;
-                case "m":
-                    this.ToggleMute();
-                    break;
+                
                 default:
                     break;
             }
