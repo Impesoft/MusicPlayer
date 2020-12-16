@@ -1,33 +1,20 @@
 ﻿using System;
-using WMPLib;
-using TagLib;
 
 namespace MusicPlayer
 {
-
-    
-        class Program
+    internal class Program
+    {
+        private static void Main(string[] args)
         {
-        static void Main(string[] args)
-        {
-            string path = "p:\\Music\\002. Queen - Under Pressure (Remastered).mp3";
-            
-            Player myplayer = new Player(path);
-            myplayer.PlaySong();
-            string keyPress;
- 
+            string dirPath = "C:\\dev\\mp3";
+            Player myPlayer = new Player(dirPath);
+            char keyPress;
             do
-            {                
-                myplayer.ShowMenu();
-                Console.WriteLine();
-                Console.WriteLine(myplayer.SongArtist);
-                Console.WriteLine(myplayer.SongTitle);
-                Console.WriteLine(myplayer.SongAlbum);
-                Console.WriteLine(myplayer.Volume);
-                keyPress = (Console.ReadKey().KeyChar).ToString().ToLower();
-                myplayer.Action(keyPress);
-
-            } while (keyPress != "x");
-            }
+            {
+                myPlayer.ShowMenu();
+                keyPress = char.ToLower(Console.ReadKey().KeyChar);
+                myPlayer.Action(keyPress);
+            } while (keyPress != 'x');
         }
     }
+}
