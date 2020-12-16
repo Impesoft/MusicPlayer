@@ -61,7 +61,7 @@ namespace MusicPlayer
             Console.WriteLine();
             for (int i = 0; i < songlist.Length; i++)
             {
-                if (i < 10)
+                if (i < 9)
                 {
                     Console.Write("0");
                 }
