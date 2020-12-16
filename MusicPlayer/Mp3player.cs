@@ -7,10 +7,7 @@ namespace MusicPlayer
         private static void Main(string[] args)
         {
             string dirPath = "P:\\Music";
-            Player myPlayer = new Player();
-            myPlayer.Load(dirPath);
-            myPlayer.PlaySong();
-            myPlayer.PublicPath = dirPath;
+            Player myPlayer = new Player(dirPath);
             string keyPress;
             do
             {

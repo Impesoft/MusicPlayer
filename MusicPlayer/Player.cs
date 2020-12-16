@@ -5,6 +5,22 @@ namespace MusicPlayer
 {
     internal class Player
     {
+        public string SongPath { get; set; }
+        public string SongTitle { get; set; }
+        public string SongAlbum { get; set; }
+        public string SongArtist { get; set; }
+        public string DirPath { get; set; }
+
+        public Player(string dirPath)
+        {
+            WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
+            MyPlayer = myPlayer;
+            DirPath = dirPath;
+            Volume = 100;
+            Load();
+            PlaySong();
+        }
+
         private int volume
         {
             get
@@ -41,21 +57,7 @@ namespace MusicPlayer
 
         public WindowsMediaPlayer MyPlayer { get; set; }
 
-        public string SongPath { get; set; }
-        public string PublicPath { get; set; }
-        public string SongTitle { get; set; }
-        public string SongAlbum { get; set; }
-        public string SongArtist { get; set; }
-
-        public Player()
-        {
-            WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
-            MyPlayer = myPlayer;
-            Volume = 100;
-            PublicPath = "c:\\";
-        }
-
-        public void PlaySong()
+        private void PlaySong()
         {
             MyPlayer.URL = SongPath;
             SongTitle = MyPlayer.currentMedia.name;
@@ -129,11 +131,23 @@ namespace MusicPlayer
             MyPlayer.controls.stop();
         }
 
+        private void Load()
+        {
+            string path = DirPath;
+            GetSongs getSong = new GetSongs();
+            path = getSong.ViewSongs(DirPath);
+            string filename = path;
+            Console.WriteLine(filename);
+            this.SongPath = filename;
+            this.PlaySong();
+            string title = this.SongTitle;
+        }
+
         public void Load(string path)
         {
-            PublicPath = path;
+            DirPath = path;
             GetSongs getSong = new GetSongs();
-            path = getSong.ViewSongs(PublicPath);
+            path = getSong.ViewSongs(DirPath);
             string filename = path;
             Console.WriteLine(filename);
             this.SongPath = filename;
@@ -150,7 +164,7 @@ namespace MusicPlayer
                     break;
 
                 case "l":
-                    this.Load(PublicPath);
+                    this.Load(DirPath);
                     break;
 
                 case "s":
