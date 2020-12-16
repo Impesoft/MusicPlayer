@@ -4,7 +4,7 @@ namespace MusicPlayer
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             string dirPath = "P:\\Music";
             Player myPlayer = new Player(dirPath);
