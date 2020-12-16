@@ -157,18 +157,23 @@ namespace MusicPlayer
 
         public void Action(Char action)
         {
+            LogAction logAction = new LogAction();
+            
             switch (action)
             {
                 case 'p':
                     this.TogglePauze();
+                    logAction.Log(DirPath, this.SongTitle, "Pauzed/Unpauzed");
                     break;
 
                 case 'l':
                     this.Load(DirPath);
+                    logAction.Log(DirPath, this.SongTitle, "Loaded");
                     break;
 
                 case 's':
                     this.Stop();
+                    logAction.Log(DirPath, this.SongTitle, "Stopped");
                     break;
 
                 case '+':
@@ -181,6 +186,7 @@ namespace MusicPlayer
 
                 case 'm':
                     this.ToggleMute();
+                    logAction.Log(DirPath, this.SongTitle, "Muted/Unmuted");
                     break;
                 
                 default:
