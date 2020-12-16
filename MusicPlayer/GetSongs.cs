@@ -22,21 +22,34 @@ namespace MusicPlayer
 
         public void GetMetaData(string file)
         {
+           if( File.Exists(file)) { 
             TagLib.File tagFile = TagLib.File.Create(file);
+            TagLib.Tag ourTag = tagFile.Tag;
             bool TagPresent = !(tagFile.Tag.IsEmpty);
-            if (TagPresent)
-            {
-                string artist = tagFile.Tag.Performers[0];
-                string album = tagFile.Tag.Album;
-                string title = tagFile.Tag.Title;
+            //Console.WriteLine($"{ourTag.Performers.ToString()} - {ourTag.Title}");
+              //  Console.ReadLine();
+                if (TagPresent)
+                {
+                    if (tagFile.Tag.Performers.Length < 1 || tagFile.Tag.Performers[0] == null)
+                    {
+                        tagFile.Tag.Performers = new[] { "unknown" };
+                        //mp3tag.Save();
+                    } 
 
-                Console.Write($"{album}  |  ");
-                Console.Write($"{artist}  |  ");
-                Console.WriteLine(title);
-            }
-            else
+                    string artist = tagFile.Tag.Performers[0];
+                    string album = tagFile.Tag.Album;
+                    string title = tagFile.Tag.Title;
+
+                   // Console.Write($"{album}  |  ");
+                    Console.WriteLine($"{artist} - {title}");
+                }
+                else
+                {
+                    Console.WriteLine(file);
+                } 
+            } else
             {
-                Console.WriteLine(file);
+                throw new Exception();
             }
         }
 

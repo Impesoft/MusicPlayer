@@ -6,7 +6,7 @@ namespace MusicPlayer
     {
         private static void Main()
         {
-            string dirPath = "P:\\Music";
+            string dirPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
             Player myPlayer = new Player(dirPath);
             char keyPress;
             do
