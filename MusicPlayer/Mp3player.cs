@@ -11,7 +11,7 @@ namespace MusicPlayer
         static void Main(string[] args)
         {
             string path = "p:\\Music\\002. Queen - Under Pressure (Remastered).mp3";
-
+            
             Player myplayer = new Player(path);
             myplayer.PlaySong();
             string keyPress;
