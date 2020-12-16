@@ -7,11 +7,16 @@ namespace MusicPlayer
     {
         public void Log(string path, string songName, string action)
         {
-            string logFile = path + "\\logFile.txt";
+            CreateDFolder(path + "\\log");
+            string logFile = path + "\\log\\logFile.txt";
             CreateLogFile(logFile); //if it doesn't exist already
             WriteDataToFile(action, songName, logFile);
         }
 
+        public void CreateDFolder(string dirPath)
+        {
+            Directory.CreateDirectory(dirPath);
+        }
         private void CreateLogFile(string logFile)
         {
             if (!File.Exists(logFile))
