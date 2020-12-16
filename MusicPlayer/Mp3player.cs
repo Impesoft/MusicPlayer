@@ -8,13 +8,13 @@ namespace MusicPlayer
         {
             string dirPath = "P:\\Music";
             Player myPlayer = new Player(dirPath);
-            string keyPress;
+            char keyPress;
             do
             {
                 myPlayer.ShowMenu();
-                keyPress = (Console.ReadKey().KeyChar).ToString().ToLower();
+                keyPress = char.ToLower(Console.ReadKey().KeyChar);
                 myPlayer.Action(keyPress);
-            } while (keyPress != "x");
+            } while (keyPress != 'x');
         }
     }
 }

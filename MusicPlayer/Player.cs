@@ -21,38 +21,35 @@ namespace MusicPlayer
             PlaySong();
         }
 
-        private int volume
+        private int volume { get; set; }
+
+        public int Volume
         {
             get
             {
-                return Volume;
+                return volume;
             }
             set
             {
                 if (value > 100)
                 {
                     MyPlayer.settings.volume = 100;
-                    Volume = 100;
+                    volume = 100;
                 }
                 else
                 {
                     if (value < 0)
                     {
                         MyPlayer.settings.volume = 0;
-                        Volume = 0;
+                        volume = 0;
                     }
                     else
                     {
-                        Volume = value;
-                        MyPlayer.settings.volume = Volume;
+                        volume = value;
+                        MyPlayer.settings.volume = volume;
                     }
                 }
             }
-        }
-
-        public int Volume
-        {
-            get; set;
         }
 
         public WindowsMediaPlayer MyPlayer { get; set; }
@@ -61,40 +58,46 @@ namespace MusicPlayer
         {
             MyPlayer.URL = SongPath;
             SongTitle = MyPlayer.currentMedia.name;
-            Volume = 100;
         }
 
         public void ShowMenu()
         {
             Console.Clear();
             ShowTitle();
+
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("[p/P]");
+            Console.Write("[p/P]"); // pause/unpause
             Console.ResetColor();
             Console.WriteLine(" Pauze/play");
+
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("[+/-]");
+            Console.Write("[+/-]"); // use + or - to change volume
             Console.ResetColor();
             Console.WriteLine(" Volume wijzigen");
+
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("[m/M]");//   Mute/unMute
             Console.ResetColor();
             Console.WriteLine(" Mute/unMute Volume");
+
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("[l/L]");//   Load track (om een ander liedje af te spelen dan het huidige liedje)
             Console.ResetColor();
             Console.WriteLine(" Laad (ander) Liedje");
+
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("[s/S]");//Stoppen (stopt het afspelen van het huidige liedje)
             Console.ResetColor();
             Console.WriteLine(" Stoppen (stopt het afspelen van het huidige liedje)");
+
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.White;
-            Console.Write("[x/X]");
+            Console.Write("[x/X]");//Exit the program completely
             Console.ResetColor();
             Console.WriteLine(" eXit (Afsluiten; sluit de volledige applicatie af)");
+
             Console.WriteLine();
-            Console.WriteLine($"now playing: {SongArtist} - { SongTitle}.");
+            Console.WriteLine($"now playing: {SongArtist} - {SongTitle}.");
             Console.WriteLine($"Current Volume {Volume}%");
         }
 
@@ -143,43 +146,41 @@ namespace MusicPlayer
             string title = this.SongTitle;
         }
 
-        public void Load(string path)
+        public void Load(string DirPath)
         {
-            DirPath = path;
+            //DirPath = DirPath;
             GetSongs getSong = new GetSongs();
-            path = getSong.ViewSongs(DirPath);
-            string filename = path;
+            string filename = getSong.ViewSongs(DirPath); 
             Console.WriteLine(filename);
             this.SongPath = filename;
             this.PlaySong();
-            string title = this.SongTitle;
         }
 
-        public void Action(string action)
+        public void Action(Char action)
         {
             switch (action)
             {
-                case "p":
+                case 'p':
                     this.TogglePauze();
                     break;
 
-                case "l":
+                case 'l':
                     this.Load(DirPath);
                     break;
 
-                case "s":
+                case 's':
                     this.Stop();
                     break;
 
-                case "+":
-                    volume++;
+                case '+':
+                    Volume++;
                     break;
 
-                case "-":
-                    volume--;
+                case '-':
+                    Volume--;
                     break;
 
-                case "m":
+                case 'm':
                     this.ToggleMute();
                     break;
 
