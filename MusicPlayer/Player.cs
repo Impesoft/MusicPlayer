@@ -96,7 +96,7 @@ namespace MusicPlayer
             Console.WriteLine($"Current Volume {Volume}%");
         }
 
-        public void TogglePauze()
+        private void TogglePauze()
         {
             if (MyPlayer.playState == WMPLib.WMPPlayState.wmppsPlaying)
             {
@@ -110,7 +110,7 @@ namespace MusicPlayer
             }
         }
 
-        public void ToggleMute()
+        private void ToggleMute()
         {
             if (MyPlayer.settings.mute)
             {
@@ -124,7 +124,7 @@ namespace MusicPlayer
             }
         }
 
-        public void Stop()
+        private void Stop()
         {
             MyPlayer.controls.stop();
         }
