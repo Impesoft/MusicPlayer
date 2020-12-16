@@ -12,7 +12,7 @@ namespace MusicPlayer
         {
             List<string> songList = new List<string>();
 
-            foreach (string file in Directory.EnumerateFiles(dir, "*.m4a"))
+            foreach (string file in Directory.EnumerateFiles(dir, "*.mp3"))
             {
                 songList.Add(file);
             }
