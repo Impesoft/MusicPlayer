@@ -13,11 +13,13 @@ namespace MusicPlayer
 
         public Player(string dirPath)
         {
+            LogAction logAction = new LogAction();
             WindowsMediaPlayer myPlayer = new WindowsMediaPlayer();
             MyPlayer = myPlayer;
             DirPath = dirPath;
             Volume = 100;
             Load();
+            logAction.Log(DirPath, this.SongTitle, "Loaded");
             PlaySong();
         }
 
@@ -200,12 +202,16 @@ namespace MusicPlayer
  (  `          (               )\ ) )\ )
  )\))(     (   )\ )  (      ) (()/((()/(     )  (       (   (
 ((_)()\   ))\ (()/(  )\  ( /(  /(_))/(_)) ( /(  )\ )   ))\  )(
-(_()((_) /((_) ((_))((_) )(_))(_)) (_))   )(_))(()/(  /((_)(()\
-|  \/  |(_))   _| |  (_)((_)_ | _ \| |   ((_)_  )(_))(_))   ((_)
+(_()((_) /((_) ((_))((_) )(_))(_)) (_))   )(_))(()/(  /((_)(()\";
+            string title2=@"|  \/  |(_))   _| |  (_)((_)_ | _ \| |   ((_)_  )(_))(_))   ((_)
 | |\/| |/ -_)/ _` |  | |/ _` ||  _/| |__ / _` || || |/ -_) | '_|
 |_|  |_|\___|\__,_|  |_|\__,_||_|  |____|\__,_| \_, |\___| |_|
                                                 |__/             ";
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(title);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(title2);
+            Console.ResetColor();
             Console.WriteLine();
         }
     }
