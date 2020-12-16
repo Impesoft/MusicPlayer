@@ -36,10 +36,10 @@ namespace MusicPlayer
                         //mp3tag.Save();
                     } 
 
-                    string artist = tagFile.Tag.Performers[0];
-                    string album = tagFile.Tag.Album;
-                    string title = tagFile.Tag.Title;
-
+            string artist = tagFile.Tag.Performers[0];
+            string album = tagFile.Tag.Album;
+            string title = tagFile.Tag.Title;
+           
                    // Console.Write($"{album}  |  ");
                     Console.WriteLine($"{artist} - {title}");
                 }
@@ -68,6 +68,7 @@ namespace MusicPlayer
                 selectIndex = i + 1;
                 Console.Write($"{selectIndex}  ");
                 GetMetaData(songlist[i]);
+                selectIndex = i + 1;
             }
             Console.Write("\nSelect number, type full path to file\nor drag and drop an mp3 on this console:");
             string invoer;
